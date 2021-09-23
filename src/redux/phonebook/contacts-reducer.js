@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import {
-  addContact,
   deleteContact,
   changeFilter,
   toggleCompleted,

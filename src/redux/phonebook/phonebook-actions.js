@@ -1,30 +1,8 @@
-import axios from 'axios';
-// import shortid from 'shortid';
 import { createAction } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'http://localhost:4040';
-
-const addContact = (name, number) => dispatch => {
-  const contact = [
-    {
-      // id: 1,
-      name,
-      number,
-      completed: false,
-    },
-  ];
-
-  dispatch({ type: 'mainState/addContactRequest' });
-
-  axios
-    .post('/mainState', contact)
-    .then(resp =>
-      dispatch({ type: 'mainState/addContactSuccess', payload: resp.data }),
-    )
-    .catch(error =>
-      dispatch({ type: 'mainState/addContactError', payload: error }),
-    );
-};
+const addContactRequest = createAction('mainState/addContactRequest');
+const addContactSuccess = createAction('mainState/addContactSuccess');
+const addContactError = createAction('mainState/addContactError');
 
 // const addContact = createAction('phonebook/add', (name, number) => ({
 //   payload: {
@@ -39,7 +17,14 @@ const deleteContact = createAction('phonebook/delete');
 const changeFilter = createAction('phonebook/changeFilter');
 const toggleCompleted = createAction('phonebook/toggleCompleted');
 
-export { addContact, deleteContact, changeFilter, toggleCompleted };
+export {
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContact,
+  changeFilter,
+  toggleCompleted,
+};
 
 // ===== БЕЗ БИБЛИОТЕКИ TOOLKIT =====
 

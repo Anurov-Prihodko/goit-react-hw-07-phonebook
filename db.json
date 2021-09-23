@@ -1,9 +1,22 @@
 {
   "mainState": [
     {
+      "id": 1,
       "name": "Mark Tiian",
       "number": "459-12-56",
       "completed": false
+    },
+    {
+      "name": "Olexsii Anyrov",
+      "number": "000-23-26",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "name": "Rosie Simpson",
+      "number": "567-45-00",
+      "completed": false,
+      "id": 3
     }
   ]
 }
