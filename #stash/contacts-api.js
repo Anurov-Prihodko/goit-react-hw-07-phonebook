@@ -6,13 +6,13 @@ const fetchContacts = () => {
   return axios.get('/mainState').then(resp => resp.data);
 };
 
-const addContact = contact => {
-  return axios.post('/mainState', contact).then(({ data }) => data);
-};
+// const addContact = contact => {
+//   return axios.post('/mainState', contact).then(({ data }) => data);
+// };
 
-const deleteContact = contactId => {
-  return axios.delete(`/mainState/${contactId}`);
-};
+// const deleteContact = contactId => {
+//   return axios.delete(`/mainState/${contactId}`);
+// };
 
 const updateContact = (contactId, update) => {
   return axios
@@ -20,6 +20,6 @@ const updateContact = (contactId, update) => {
     .then(({ data }) => data);
 };
 
-const contactsApi = { fetchContacts, addContact, deleteContact, updateContact };
+const contactsApi = { fetchContacts, updateContact };
 
 export default contactsApi;

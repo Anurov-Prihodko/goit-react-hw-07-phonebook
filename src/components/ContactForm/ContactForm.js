@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addContact } from '../../redux/phonebook/contacts-operations.js';
+import { addContact } from '../../redux/phonebook/contacts-operations';
 import { connect } from 'react-redux';
 import s from './ContactForm.module.css';
 

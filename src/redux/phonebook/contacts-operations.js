@@ -4,6 +4,9 @@ import {
   addContactRequest,
   addContactSuccess,
   addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
 } from './phonebook-actions';
 
 axios.defaults.baseURL = 'http://localhost:4040';
@@ -23,4 +26,13 @@ const addContact = (name, number) => dispatch => {
     .catch(error => dispatch(addContactError(error)));
 };
 
-export { addContact };
+const deleteContact = contactId => dispatch => {
+  dispatch(deleteContactRequest());
+
+  axios
+    .delete(`/mainState/${contactId}`)
+    .then(() => dispatch(deleteContactSuccess(contactId)))
+    .catch(error => dispatch(deleteContactError(error)));
+};
+
+export { addContact, deleteContact };
