@@ -16,13 +16,13 @@ const contactsArray = [
   },
 ];
 
-const addContactReducer = (state, { payload }) => {
-  if (state.find(({ name }) => name === payload.name)) {
-    alert(`${payload.name} is already in contacts.`);
-    return [...state];
-  }
-  return [...state, payload];
-};
+// const addContactReducer = (state, { payload }) => {
+//   if (state.find(({ name }) => name === payload.name)) {
+//     alert(`${payload.name} is already in contacts.`);
+//     return [...state];
+//   }
+//   return [...state, payload];
+// };
 
 const deleteContactReducer = (state, { payload }) =>
   state.filter(({ id }) => id !== payload);
@@ -35,7 +35,13 @@ const toggleCompletedReducer = (state, { payload }) =>
   );
 
 const contacts = createReducer(contactsArray, {
-  [addContact]: addContactReducer,
+  addContactSuccess: (contactsArray, { payload }) => {
+    if (contactsArray.find(({ name }) => name === payload.name)) {
+      alert(`${payload.name} is already in contacts.`);
+      return [...contactsArray];
+    }
+    return [...contactsArray, payload];
+  },
   [deleteContact]: deleteContactReducer,
   [toggleCompleted]: toggleCompletedReducer,
 });

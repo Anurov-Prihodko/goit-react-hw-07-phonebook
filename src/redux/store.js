@@ -10,11 +10,11 @@ import {
 import logger from 'redux-logger';
 import contacts from './phonebook/contacts-reducer';
 
-const myMiddleware = store => next => action => {
-  console.log('Моя прослойка ', action);
+// const myMiddleware = store => next => action => {
+//   console.log('Моя прослойка ', action);
 
-  next(action);
-};
+//   next(action);
+// };
 
 // function myMiddleware (store) {
 //   return function (next) {
@@ -29,7 +29,6 @@ const middleware = [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
-  myMiddleware,
   logger,
 ];
 
