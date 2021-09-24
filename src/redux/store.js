@@ -10,19 +10,6 @@ import {
 import logger from 'redux-logger';
 import contacts from './phonebook/contacts-reducer';
 
-// const myMiddleware = store => next => action => {
-//   console.log('Моя прослойка ', action);
-
-//   next(action);
-// };
-
-// function myMiddleware (store) {
-//   return function (next) {
-//     return function (action) {
-//     }
-//   }
-//  }
-
 const middleware = [
   ...getDefaultMiddleware({
     serializableCheck: {
@@ -39,7 +26,5 @@ const store = configureStore({
   middleware,
   devTools: process.env.NODE_ENV === 'development',
 });
-
-// const persistor = persistStore(store);
 
 export default store;

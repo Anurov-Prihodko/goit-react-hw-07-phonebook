@@ -64,3 +64,8 @@ td {
   display: table-cell;
   vertical-align: inherit;
 }
+
+.spinner {
+  width: 420px;
+  text-align: center;
+}

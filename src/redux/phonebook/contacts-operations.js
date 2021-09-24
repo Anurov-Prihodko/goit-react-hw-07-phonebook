@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import shortid from 'shortid';
 import {
   addContactRequest,
   addContactSuccess,
@@ -7,9 +6,32 @@ import {
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactError,
+  toggleCompletedRequest,
+  toggleCompletedSuccess,
+  toggleCompletedError,
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
 } from './phonebook-actions';
 
 axios.defaults.baseURL = 'http://localhost:4040';
+
+// ===== Асинхронный вариант =====
+const fetchContacts = () => async dispatch => {
+  dispatch(fetchContactsRequest());
+
+  try {
+    const { data } = await axios.get('/mainState');
+    dispatch(fetchContactsSuccess(data));
+  } catch (error) {
+    dispatch(fetchContactsError(error));
+  }
+
+  // axios
+  //   .get('/mainState')
+  //   .then(({ data }) => dispatch(fetchContactsSuccess(data)))
+  //   .catch(error => dispatch(fetchContactsError(error)));
+};
 
 const addContact = (name, number) => dispatch => {
   const contact = {
@@ -22,7 +44,7 @@ const addContact = (name, number) => dispatch => {
 
   axios
     .post('/mainState', contact)
-    .then(resp => dispatch(addContactSuccess(resp.data)))
+    .then(({ data }) => dispatch(addContactSuccess(data)))
     .catch(error => dispatch(addContactError(error)));
 };
 
@@ -35,4 +57,17 @@ const deleteContact = contactId => dispatch => {
     .catch(error => dispatch(deleteContactError(error)));
 };
 
-export { addContact, deleteContact };
+const toggleCompleted =
+  ({ id, completed }) =>
+  dispatch => {
+    const update = { completed };
+
+    dispatch(toggleCompletedRequest());
+
+    axios
+      .patch(`/mainState/${id}`, update)
+      .then(({ data }) => dispatch(toggleCompletedSuccess(data)))
+      .catch(error => dispatch(toggleCompletedError(error)));
+  };
+
+export { addContact, deleteContact, toggleCompleted, fetchContacts };

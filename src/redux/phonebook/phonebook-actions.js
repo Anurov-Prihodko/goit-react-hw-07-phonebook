@@ -1,5 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
 
+const fetchContactsRequest = createAction('mainState/fetchContactsRequest');
+const fetchContactsSuccess = createAction('mainState/fetchContactsSuccess');
+const fetchContactsError = createAction('mainState/fetchContactsError');
+
 const addContactRequest = createAction('mainState/addContactRequest');
 const addContactSuccess = createAction('mainState/addContactSuccess');
 const addContactError = createAction('mainState/addContactError');
@@ -7,6 +11,12 @@ const addContactError = createAction('mainState/addContactError');
 const deleteContactRequest = createAction('mainState/deleteContactRequest');
 const deleteContactSuccess = createAction('mainState/deleteContactSuccess');
 const deleteContactError = createAction('mainState/deleteContactError');
+
+const toggleCompletedRequest = createAction('mainState/toggleCompletedRequest');
+const toggleCompletedSuccess = createAction('mainState/toggleCompletedSuccess');
+const toggleCompletedError = createAction('mainState/toggleCompletedError');
+
+// ===== Без json-server =====
 
 // const addContact = createAction('phonebook/add', (name, number) => ({
 //   payload: {
@@ -18,8 +28,9 @@ const deleteContactError = createAction('mainState/deleteContactError');
 // }));
 
 // const deleteContact = createAction('phonebook/delete');
+// const toggleCompleted = createAction('phonebook/toggleCompleted');
+
 const changeFilter = createAction('phonebook/changeFilter');
-const toggleCompleted = createAction('phonebook/toggleCompleted');
 
 export {
   addContactRequest,
@@ -29,7 +40,12 @@ export {
   deleteContactSuccess,
   deleteContactError,
   changeFilter,
-  toggleCompleted,
+  toggleCompletedRequest,
+  toggleCompletedSuccess,
+  toggleCompletedError,
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
 };
 
 // ===== БЕЗ БИБЛИОТЕКИ TOOLKIT =====

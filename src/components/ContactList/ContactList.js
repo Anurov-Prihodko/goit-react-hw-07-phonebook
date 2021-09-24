@@ -5,7 +5,7 @@ import s from './ContactList.module.css';
 import { connect } from 'react-redux';
 import {
   deleteContact,
-  // toggleCompleted,
+  toggleCompleted,
 } from '../../redux/phonebook/contacts-operations';
 
 const ContactList = ({ contacts, onDeleteContact, onToggleCompleted }) => (
@@ -16,7 +16,7 @@ const ContactList = ({ contacts, onDeleteContact, onToggleCompleted }) => (
           type="checkbox"
           className={s.checkbox}
           checked={completed}
-          onChange={() => onToggleCompleted(id)}
+          onChange={() => onToggleCompleted({ id, completed: !completed })}
         />
         <p className={s.text}>
           {name}: {number}
@@ -53,7 +53,7 @@ const mapStateToProps = ({ mainState: { contacts, filter } }) => ({
 
 const mapDispatchToProps = dispatch => ({
   onDeleteContact: contactId => dispatch(deleteContact(contactId)),
-  // onToggleCompleted: contactId => dispatch(toggleCompleted(contactId)),
+  onToggleCompleted: contactId => dispatch(toggleCompleted(contactId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

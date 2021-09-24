@@ -1,11 +1,14 @@
-import React from 'react';
+import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 import s from './App.module.css';
+import { fetchContacts } from './redux/phonebook/contacts-operations';
+import Spinner from './components/Spinner/Spinner';
 
-function App() {
+function App({ fetchContacts, isLoading }) {
   const totalContactsCount = useSelector(
     state => state.mainState.contacts.length,
   );
@@ -16,6 +19,10 @@ function App() {
     ),
   );
 
+  useEffect(() => {
+    fetchContacts();
+  }, [fetchContacts]);
+
   return (
     <div className={s.container}>
       <h1 className={s.mainTitle}>Phonebook</h1>
@@ -25,12 +32,21 @@ function App() {
       <ContactForm />
       <h2 className={s.mainTitle}>Contacts</h2>
       <Filter />
+      {isLoading && <Spinner />}
       <ContactList />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isLoading: state.mainState.loading,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchContacts: () => dispatch(fetchContacts()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // ===== ЧЕРЕЗ CONNECT =====
 

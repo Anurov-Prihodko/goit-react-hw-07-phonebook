@@ -7,9 +7,13 @@ import {
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactError,
-  // deleteContact,
   changeFilter,
-  toggleCompleted,
+  toggleCompletedRequest,
+  toggleCompletedSuccess,
+  toggleCompletedError,
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
 } from './phonebook-actions';
 
 const contactsArray = [
@@ -21,34 +25,36 @@ const contactsArray = [
   // },
 ];
 
-// const addContactReducer = (state, { payload }) => {
-//   if (state.find(({ name }) => name === payload.name)) {
-//     alert(`${payload.name} is already in contacts.`);
-//     return [...state];
-//   }
-//   return [...state, payload];
-// };
+const addContactReducer = (state, { payload }) => {
+  if (state.find(({ name }) => name === payload.name)) {
+    alert(`${payload.name} is already in contacts.`);
+    return [...state];
+  }
+  return [...state, payload];
+};
 
 const deleteContactReducer = (state, { payload }) =>
   state.filter(({ id }) => id !== payload);
 
 const toggleCompletedReducer = (state, { payload }) =>
-  state.map(contact =>
-    contact.id === payload
-      ? { ...contact, completed: !contact.completed }
-      : contact,
-  );
+  state.map(contact => (contact.id === payload.id ? payload : contact));
 
 const contacts = createReducer(contactsArray, {
-  [addContactSuccess]: (contactsArray, { payload }) => {
-    if (contactsArray.find(({ name }) => name === payload.name)) {
-      alert(`${payload.name} is already in contacts.`);
-      return [...contactsArray];
-    }
-    return [...contactsArray, payload];
-  },
+  [fetchContactsSuccess]: (_, { payload }) => payload,
+  [addContactSuccess]: addContactReducer,
+
+  // ===== Не через функию =====
+
+  //   (contactsArray, { payload }) => {
+  //   if (contactsArray.find(({ name }) => name === payload.name)) {
+  //     alert(`${payload.name} is already in contacts.`);
+  //     return [...contactsArray];
+  //   }
+  //   return [...contactsArray, payload];
+  // },
+
   [deleteContactSuccess]: deleteContactReducer,
-  [toggleCompleted]: toggleCompletedReducer,
+  [toggleCompletedSuccess]: toggleCompletedReducer,
 });
 
 const filter = createReducer('', {
@@ -56,12 +62,18 @@ const filter = createReducer('', {
 });
 
 const loading = createReducer(false, {
+  [fetchContactsRequest]: () => true,
+  [fetchContactsSuccess]: () => false,
+  [fetchContactsError]: () => false,
   [addContactRequest]: () => true,
   [addContactSuccess]: () => false,
   [addContactError]: () => false,
   [deleteContactRequest]: () => true,
   [deleteContactSuccess]: () => false,
   [deleteContactError]: () => false,
+  [toggleCompletedRequest]: () => true,
+  [toggleCompletedSuccess]: () => false,
+  [toggleCompletedError]: () => false,
 });
 
 export default combineReducers({
