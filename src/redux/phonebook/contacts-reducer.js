@@ -14,7 +14,7 @@ import {
   fetchContactsRequest,
   fetchContactsSuccess,
   fetchContactsError,
-} from './phonebook-actions';
+} from './contacts-actions';
 
 const contactsArray = [
   // {

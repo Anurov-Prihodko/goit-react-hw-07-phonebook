@@ -7,6 +7,7 @@ import {
   deleteContact,
   toggleCompleted,
 } from '../../redux/phonebook/contacts-operations';
+import { getVisibleContacts } from '../../redux/phonebook/contacts-selectors';
 
 const ContactList = ({ contacts, onDeleteContact, onToggleCompleted }) => (
   <ul className={s.list}>
@@ -39,16 +40,18 @@ ContactList.propTypes = {
   onToggleCompleted: PropTypes.func.isRequired,
 };
 
-const getVisibleContacts = (allContacts, filter) => {
-  const normalizedFilter = filter.toLowerCase().trim();
+// ===== Без селекторов =====
 
-  return allContacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter),
-  );
-};
+// const getVisibleContacts = (allContacts, filter) => {
+//   const normalizedFilter = filter.toLowerCase().trim();
 
-const mapStateToProps = ({ mainState: { contacts, filter } }) => ({
-  contacts: getVisibleContacts(contacts, filter),
+//   return allContacts.filter(contact =>
+//     contact.name.toLowerCase().includes(normalizedFilter),
+//   );
+// };
+
+const mapStateToProps = state => ({
+  contacts: getVisibleContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({

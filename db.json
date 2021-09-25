@@ -13,10 +13,16 @@
       "id": 4
     },
     {
+      "name": "Alla Kasatka",
+      "number": "234-23-26",
+      "completed": true,
+      "id": 6
+    },
+    {
       "name": "Olexsii Anyrov",
       "number": "000-23-26",
       "completed": false,
-      "id": 5
+      "id": 7
     }
   ]
 }

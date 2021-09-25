@@ -7,6 +7,7 @@ import Filter from './components/Filter';
 import s from './App.module.css';
 import { fetchContacts } from './redux/phonebook/contacts-operations';
 import Spinner from './components/Spinner/Spinner';
+import { getLoading } from './redux/phonebook/contacts-selectors';
 
 function App({ fetchContacts, isLoading }) {
   const totalContactsCount = useSelector(
@@ -39,7 +40,7 @@ function App({ fetchContacts, isLoading }) {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.mainState.loading,
+  isLoading: getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
