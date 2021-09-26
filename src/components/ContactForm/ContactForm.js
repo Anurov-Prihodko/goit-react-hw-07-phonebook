@@ -67,12 +67,12 @@ function ContactForm({ addContact }) {
   );
 }
 
+ContactForm.propTypes = {
+  addContact: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = dispatch => ({
   addContact: (name, number) => dispatch(addContact(name, number)),
 });
 
 export default connect(null, mapDispatchToProps)(ContactForm);
-
-ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
-};

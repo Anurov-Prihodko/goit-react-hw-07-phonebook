@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
@@ -39,6 +40,11 @@ function App({ fetchContacts, isLoading }) {
   );
 }
 
+App.propTypes = {
+  fetchContacts: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};
+
 const mapStateToProps = state => ({
   isLoading: getLoading(state),
 });
@@ -65,27 +71,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 //     ),
 //   };
 // };
-
-// {
-//   "contacts": [
-//     {
-//       "id": "id-1",
-//       "name": "Olexsii Anyrov",
-//       "number": "000-23-26",
-//       "completed": false
-//     },
-//     {
-//       "id": "id-2",
-//       "name": "Mark Titan",
-//       "number": "459-12-56",
-//       "completed": false
-//     },
-//     {
-//       "id": "id-3",
-//       "name": "Elena Tsapliuk",
-//       "number": "567-45-00",
-//       "completed": false
-//     }
-//   ],
-//   "filter": ""
-// }
