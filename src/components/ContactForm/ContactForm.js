@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { addContact } from '../../redux/phonebook';
 import { useDispatch } from 'react-redux';
 import s from './ContactForm.module.css';
@@ -68,11 +67,11 @@ export default function ContactForm() {
   );
 }
 
-ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
-};
-
 // ===== With connect ======
+
+// ContactForm.propTypes = {
+//   addContact: PropTypes.func.isRequired,
+// };
 
 // const mapDispatchToProps = dispatch => ({
 //   addContact: (name, number) => dispatch(addContact(name, number)),
