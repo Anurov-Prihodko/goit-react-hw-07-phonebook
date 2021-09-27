@@ -6,18 +6,16 @@ import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 import s from './App.module.css';
 import Spinner from './components/Spinner/Spinner';
-import { fetchContacts, getLoading } from './redux/phonebook';
+import {
+  fetchContacts,
+  getLoading,
+  getContactsLength,
+  getCompleteContactsCount,
+} from './redux/phonebook';
 
 function App({ fetchContacts, isLoading }) {
-  const totalContactsCount = useSelector(
-    state => state.mainState.contacts.length,
-  );
-  const completeContactsCount = useSelector(state =>
-    state.mainState.contacts.reduce(
-      (acc, contacts) => (contacts.completed ? acc + 1 : acc),
-      0,
-    ),
-  );
+  const totalContactsCount = useSelector(getContactsLength);
+  const completeContactsCount = useSelector(getCompleteContactsCount);
 
   useEffect(() => {
     fetchContacts();

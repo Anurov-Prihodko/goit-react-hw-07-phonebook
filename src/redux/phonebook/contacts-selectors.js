@@ -4,6 +4,15 @@ const getAllConatcts = state => state.mainState.contacts;
 
 // ===== used in App.js =====
 export const getLoading = state => state.mainState.loading;
+export const getContactsLength = state => state.mainState.contacts.length;
+export const getCompleteContactsCount = createSelector(
+  [getAllConatcts],
+  allContacts =>
+    allContacts.reduce(
+      (acc, contacts) => (contacts.completed ? acc + 1 : acc),
+      0,
+    ),
+);
 
 // ===== used in Filter.js =====
 export const getFilter = state => state.mainState.filter;
