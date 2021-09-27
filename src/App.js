@@ -1,7 +1,6 @@
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
