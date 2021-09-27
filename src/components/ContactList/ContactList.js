@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import {
   deleteContact,
   toggleCompleted,
-} from '../../redux/phonebook/contacts-operations';
-import { getVisibleContacts } from '../../redux/phonebook/contacts-selectors';
+  getVisibleContacts,
+} from '../../redux/phonebook';
 
 const ContactList = ({ contacts, onDeleteContact, onToggleCompleted }) => (
   <ul className={s.list}>

@@ -6,9 +6,8 @@ import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 import s from './App.module.css';
-import { fetchContacts } from './redux/phonebook/contacts-operations';
 import Spinner from './components/Spinner/Spinner';
-import { getLoading } from './redux/phonebook/contacts-selectors';
+import { fetchContacts, getLoading } from './redux/phonebook';
 
 function App({ fetchContacts, isLoading }) {
   const totalContactsCount = useSelector(
