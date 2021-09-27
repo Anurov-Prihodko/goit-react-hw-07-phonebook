@@ -2,37 +2,44 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import s from './ContactList.module.css';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import {
   deleteContact,
   toggleCompleted,
   getVisibleContacts,
 } from '../../redux/phonebook';
 
-const ContactList = ({ contacts, onDeleteContact, onToggleCompleted }) => (
-  <ul className={s.list}>
-    {contacts.map(({ id, name, number, completed }) => (
-      <li key={id} className={classNames(s.item, { [s.completed]: completed })}>
-        <input
-          type="checkbox"
-          className={s.checkbox}
-          checked={completed}
-          onChange={() => onToggleCompleted({ id, completed: !completed })}
-        />
-        <p className={s.text}>
-          {name}: {number}
-        </p>
-        <button
-          type="button"
-          className={s.pug}
-          onClick={() => onDeleteContact(id)}
+const ContactList = ({ onDeleteContact, onToggleCompleted }) => {
+  const contacts = useSelector(getVisibleContacts);
+
+  return (
+    <ul className={s.list}>
+      {contacts.map(({ id, name, number, completed }) => (
+        <li
+          key={id}
+          className={classNames(s.item, { [s.completed]: completed })}
         >
-          Delete
-        </button>
-      </li>
-    ))}
-  </ul>
-);
+          <input
+            type="checkbox"
+            className={s.checkbox}
+            checked={completed}
+            onChange={() => onToggleCompleted({ id, completed: !completed })}
+          />
+          <p className={s.text}>
+            {name}: {number}
+          </p>
+          <button
+            type="button"
+            className={s.pug}
+            onClick={() => onDeleteContact(id)}
+          >
+            Delete
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 ContactList.propTypes = {
   contacts: PropTypes.array.isRequired,
@@ -50,13 +57,13 @@ ContactList.propTypes = {
 //   );
 // };
 
-const mapStateToProps = state => ({
-  contacts: getVisibleContacts(state),
-});
+// const mapStateToProps = state => ({
+//   contacts: getVisibleContacts(state),
+// });
 
 const mapDispatchToProps = dispatch => ({
   onDeleteContact: contactId => dispatch(deleteContact(contactId)),
   onToggleCompleted: contactId => dispatch(toggleCompleted(contactId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default connect(null, mapDispatchToProps)(ContactList);
