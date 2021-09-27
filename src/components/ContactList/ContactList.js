@@ -1,16 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import s from './ContactList.module.css';
-import { connect, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   deleteContact,
   toggleCompleted,
   getVisibleContacts,
 } from '../../redux/phonebook';
 
-const ContactList = ({ onDeleteContact, onToggleCompleted }) => {
+const ContactList = () => {
   const contacts = useSelector(getVisibleContacts);
+  const dispatch = useDispatch();
 
   return (
     <ul className={s.list}>
@@ -23,7 +23,9 @@ const ContactList = ({ onDeleteContact, onToggleCompleted }) => {
             type="checkbox"
             className={s.checkbox}
             checked={completed}
-            onChange={() => onToggleCompleted({ id, completed: !completed })}
+            onChange={() =>
+              dispatch(toggleCompleted({ id, completed: !completed }))
+            }
           />
           <p className={s.text}>
             {name}: {number}
@@ -31,7 +33,7 @@ const ContactList = ({ onDeleteContact, onToggleCompleted }) => {
           <button
             type="button"
             className={s.pug}
-            onClick={() => onDeleteContact(id)}
+            onClick={() => dispatch(deleteContact(id))}
           >
             Delete
           </button>
@@ -41,10 +43,7 @@ const ContactList = ({ onDeleteContact, onToggleCompleted }) => {
   );
 };
 
-ContactList.propTypes = {
-  onDeleteContact: PropTypes.func.isRequired,
-  onToggleCompleted: PropTypes.func.isRequired,
-};
+export default ContactList;
 
 // ===== Без селекторов =====
 
@@ -60,9 +59,8 @@ ContactList.propTypes = {
 //   contacts: getVisibleContacts(state),
 // });
 
-const mapDispatchToProps = dispatch => ({
-  onDeleteContact: contactId => dispatch(deleteContact(contactId)),
-  onToggleCompleted: contactId => dispatch(toggleCompleted(contactId)),
-});
+// const mapDispatchToProps = dispatch => ({
+//   onDeleteContact: contactId => dispatch(deleteContact(contactId)),
+// });
 
-export default connect(null, mapDispatchToProps)(ContactList);
+// export default connect(null, mapDispatchToProps)(ContactList);

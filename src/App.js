@@ -1,6 +1,5 @@
-import { connect, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
@@ -13,13 +12,15 @@ import {
   getCompleteContactsCount,
 } from './redux/phonebook';
 
-function App({ fetchContacts, isLoading }) {
+function App() {
   const totalContactsCount = useSelector(getContactsLength);
   const completeContactsCount = useSelector(getCompleteContactsCount);
+  const isLoading = useSelector(getLoading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchContacts();
-  }, [fetchContacts]);
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <div className={s.container}>
@@ -36,20 +37,21 @@ function App({ fetchContacts, isLoading }) {
   );
 }
 
-App.propTypes = {
-  fetchContacts: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-};
+export default App;
 
-const mapStateToProps = state => ({
-  isLoading: getLoading(state),
-});
+// App.propTypes = {
+//   fetchContacts: PropTypes.func.isRequired,
+// };
 
-const mapDispatchToProps = dispatch => ({
-  fetchContacts: () => dispatch(fetchContacts()),
-});
+// const mapStateToProps = state => ({
+//   isLoading: getLoading(state),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// const mapDispatchToProps = dispatch => ({
+//   fetchContacts: () => dispatch(fetchContacts()),
+// });
+
+// export default connect(null, mapDispatchToProps)(App);
 
 // ===== ЧЕРЕЗ CONNECT =====
 
